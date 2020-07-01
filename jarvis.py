@@ -2,6 +2,12 @@ import click
 import requests
 from addict import Dict
 
+
+def _generate_output(data):
+    for index in data:
+        if True:
+            yield index + '\n' + data[index].__str__() + '\n\n'
+
 @click.command()
 @click.option('--source', prompt=True)
 @click.option('--dest', prompt=True)
@@ -25,7 +31,7 @@ def cli(api, site, source, dest, date, count, all):
         payload.count = count
         r = requests.post(url, data=payload)
         click.echo(r.url)
-        click.echo(r.json())
+        click.echo_via_pager(_generate_output(r.json()))
     else:
         # generate report
         url = base + ''
@@ -38,7 +44,7 @@ def cli(api, site, source, dest, date, count, all):
         payload.count = count
         r = requests.get(url, params=payload)
         click.echo(r.url)
-        click.echo(r.json())
+        click.echo_via_pager(_generate_output(r.json()))
 
 if __name__ == '__main__':
     cli()
