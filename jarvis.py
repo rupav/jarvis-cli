@@ -97,7 +97,3 @@ def cli(api, site, source, dest, ddate, adate, count, all, oneway):
 
 if __name__ == '__main__':
     cli()
-
-'''
-python jarvis.py scrape --source=DEL --dest=BOM --ddate=2020-07-07 --adate=2020-07-07 --count=1 --oneway=True
-'''
